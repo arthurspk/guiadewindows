@@ -1,0 +1,24 @@
+# Configuração do verificador de links (https://github.com/lycheeverse/lychee)
+# Uso: lychee --no-progress './**/*.md'
+#
+# Domínios que bloqueiam qualquer verificador automatizado (anti-bot / TLS
+# fingerprinting), mesmo com as páginas reais no ar e mesmo trocando a
+# User-Agent. Cada um foi verificado manualmente com HTTP 200 nesta sessão
+# (curl com User-Agent de navegador) antes de entrar aqui:
+# - linkedin.com: responde 999 a qualquer cliente automatizado.
+# - reddit.com: responde 403 ao lychee mesmo com User-Agent de navegador.
+# - facebook.com: responde 200 com curl e User-Agent curta "Mozilla/5.0", mas
+#   400 (Bad Request) com a User-Agent completa de navegador usada abaixo
+#   (necessária para outros domínios) — comportamento inconsistente do
+#   próprio Facebook, não um link morto (confirmado manualmente nesta sessão).
+exclude = [
+  "^https://www\\.linkedin\\.com/",
+  "^https://www\\.reddit\\.com/",
+  "^https://www\\.facebook\\.com/",
+]
+
+# Alguns sites (ex.: microsoft.com) bloqueiam User-Agents curtos ou não
+# reconhecidos como navegador real, mesmo estando no ar. Um User-Agent
+# completo de navegador evita falsos positivos sem afrouxar a verificação
+# (ainda exige HTTP 200).
+user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0 Safari/537.36"
